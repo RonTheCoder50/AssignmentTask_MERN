@@ -1,0 +1,20 @@
+{
+  "name": "taskmanager_backend",
+  "version": "1.0.0",
+  "description": "The assignment task that need to build rest api's and task logic",
+  "license": "ISC",
+  "author": "rohan",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.7.3",
+    "nodemon": "^3.1.14"
+  }
+}
