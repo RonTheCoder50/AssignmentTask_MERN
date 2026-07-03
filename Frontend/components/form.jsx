@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 
 export default function TaskForm() {
   const data = JSON.parse(localStorage.getItem("udata"));
+  const [loading, setLoading] = useState(false);
 
   const [info, setInfo] = useState({
     title: data?.title || "",
@@ -46,6 +47,8 @@ export default function TaskForm() {
       return;
     }
 
+    setLoading(true);
+
     if (!data) {
       //task needs to add.
       const response = await addTaskAPI(info);
@@ -58,8 +61,16 @@ export default function TaskForm() {
       localStorage.removeItem("udata");
     }
 
-    refresh();
-    status("dashboard");
+    setTimeout(() => {
+      refresh();
+      setLoading(false);
+      status("dashboard");
+      setLoading({
+        title: "",
+        content: "",
+        id: null,
+      });
+    }, 4000);
   }
 
   return (
@@ -90,9 +101,14 @@ export default function TaskForm() {
 
       <div className="flex items-center justify-center gap-4 mt-6">
         <Button
-          value={"Submit"}
+          disabled={loading}
+          value={loading ? "Submiting..." : "Submit"}
           onSmash={() => handleSubmit()}
-          color={"bg-green-500 text-white hover:bg-green-600"}
+          color={
+            loading
+              ? "bg-gray-500 text-gray-100 pointer-events-none"
+              : "bg-green-500 text-white hover:bg-green-600"
+          }
         />
         <Button
           value={"Cancel"}

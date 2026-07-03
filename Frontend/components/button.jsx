@@ -1,6 +1,7 @@
-export default function Button({ value, onSmash, color }) {
+export default function Button({ disabled, value, onSmash, color }) {
   return (
     <button
+      disabled={disabled}
       onClick={onSmash}
       className={`
             poppins-regular 
