@@ -61,16 +61,14 @@ export default function TaskForm() {
       localStorage.removeItem("udata");
     }
 
-    setTimeout(() => {
-      refresh();
-      setLoading(false);
-      status("dashboard");
-      setLoading({
-        title: "",
-        content: "",
-        id: null,
-      });
-    }, 4000);
+    refresh();
+    setLoading(false);
+    status("dashboard");
+    setLoading({
+      title: "",
+      content: "",
+      id: null,
+    });
   }
 
   return (
