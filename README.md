@@ -169,6 +169,10 @@ npm run dev
 
 ---
 
+### Live
+- Frontend: https://taskmanager-six-swart.vercel.app
+- Backend: https://taskmanager-app-fx8t.onrender.com
+
 ## Author
 
 **Rohan Vaybhase**
