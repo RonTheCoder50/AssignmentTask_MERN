@@ -14,9 +14,14 @@ dotenv.config();
 connectDB();
 
 //to avoid cors issue
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://taskmanager-six-swart.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "https://taskmanager-six-swart.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
