@@ -16,9 +16,8 @@ connectDB();
 //to avoid cors issue
 app.use(
   cors({
-    origin: "http://localhost:5173",
-     "https://taskmanager-six-swart.vercel.app/",
-     credentials: true
+    origin: "https://taskmanager-six-swart.vercel.app",
+    credentials: true,
   }),
 );
 
