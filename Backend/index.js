@@ -14,14 +14,14 @@ dotenv.config();
 connectDB();
 
 //to avoid cors issue
-const allowedOrigins = [
+const allowedHttpsOrigins = [
   "http://localhost:5173",
   "https://taskmanager-six-swart.vercel.app",
 ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: allowedHttpsOrigins,
     credentials: true,
   }),
 );
@@ -31,6 +31,10 @@ app.use(express.json());
 
 //test route
 app.use("/test", test);
+
+app.get("/", (req, res) => {
+  res.send("TaskManager Backend is running 🚀");
+});
 
 //task routes
 app.use("/api/task", taskRouter);
