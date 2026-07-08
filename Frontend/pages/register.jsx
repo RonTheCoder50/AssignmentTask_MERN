@@ -54,8 +54,6 @@ export default function RegisterPage() {
     let login;
     if (register) {
       login = await loginAPI(userObj);
-      console.log(register);
-      console.log(login);
     }
 
     if (login) {
