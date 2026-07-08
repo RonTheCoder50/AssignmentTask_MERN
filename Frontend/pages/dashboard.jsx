@@ -7,12 +7,18 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col items-center gap-4 mt-6 mb-4 overflow-auto">
-      {data === null ||
-        (data?.length === 0 && (
-          <p className="text-base sm:text-xl text-center mt-20 poppins-regular">
-            No Tasks Found
-          </p>
-        ))}
+      {!data && (
+        <p className="text-base sm:text-xl text-center mt-20 poppins-regular">
+          No Tasks Found
+        </p>
+      )}
+
+      {data && data.length === 0 && (
+        <p className="text-base sm:text-xl text-center mt-20 poppins-regular">
+          No Tasks Found
+        </p>
+      )}
+
       {data?.map((task) => {
         if (!task?.completed) {
           return <CardBanner key={task?._id} data={task} />;

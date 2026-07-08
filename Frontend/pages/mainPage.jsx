@@ -15,6 +15,7 @@ import { createContext } from "react";
 export const TaskContext = createContext();
 
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function MainSection() {
   const [data, setData] = useState(null);
@@ -25,6 +26,8 @@ export default function MainSection() {
     seletedTaskId && data?.filter((task) => task._id === seletedTaskId);
 
   const cleanData = data?.filter((task) => task.completed === false);
+
+  const navigate = useNavigate();
 
   function handleStatus(val) {
     if (val.trim().toLowerCase() === status) return;
@@ -46,6 +49,7 @@ export default function MainSection() {
     console.log(response);
   }
 
+  //fetch data
   async function fetchData() {
     const response = await apiCall();
     if (!response) {
@@ -57,20 +61,36 @@ export default function MainSection() {
     console.log(response);
   }
 
+  //handle logout
+  function handleLogout() {
+    if (confirm("Do you want to logout ?")) {
+      localStorage.clear();
+      navigate("/login");
+    }
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
 
   let component;
 
-  if (status === "form") {
-    component = <TaskForm />;
-  } else if (status === "history") {
-    component = <HistoryPage />;
-  } else if (status === "view") {
-    component = <TaskCard data={viewTask[0]} />;
-  } else {
-    component = <Dashboard />;
+  switch (status) {
+    case "form":
+      component = <TaskForm />;
+      break;
+    case "history":
+      component = <HistoryPage />;
+      break;
+    case "view":
+      component = <TaskCard data={viewTask[0]} />;
+      break;
+    case "logout":
+      handleLogout();
+      break;
+    default:
+      component = <Dashboard />;
+      break;
   }
 
   if (data === null) {

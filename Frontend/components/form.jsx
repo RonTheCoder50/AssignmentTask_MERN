@@ -9,7 +9,8 @@ import { TaskContext } from "../pages/mainPage";
 import toast from "react-hot-toast";
 
 export default function TaskForm() {
-  const data = JSON.parse(localStorage.getItem("udata"));
+  const raw = localStorage.getItem("udata");
+  const data = raw ? JSON.parse(raw) : null;
   const [loading, setLoading] = useState(false);
 
   const [info, setInfo] = useState({
@@ -50,15 +51,17 @@ export default function TaskForm() {
     setLoading(true);
 
     if (!data) {
-      //task needs to add.
-      const response = await addTaskAPI(info);
+      //new task add if data is null (means this component not use for update task)
+      const taskObj = {
+        title: info.title.trim(),
+        content: info.content.trim(),
+      };
+      const response = await addTaskAPI(taskObj);
       console.log(response);
     } else {
-      //update task call
+      //this component used to update existing task rather than adding new one!
       const response = await updateTaskAPI(info);
       console.log(response);
-
-      localStorage.removeItem("udata");
     }
 
     refresh();
@@ -69,6 +72,8 @@ export default function TaskForm() {
       content: "",
       id: null,
     });
+
+    localStorage.removeItem("udata");
   }
 
   return (

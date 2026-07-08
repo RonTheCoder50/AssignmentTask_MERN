@@ -2,7 +2,7 @@ import Button from "../components/button";
 
 export default function Navbar({ value, toggle }) {
   return (
-    <div className="flex flex-wrap gap-2 justify-around items-center p-4 border-b tracking-wide">
+    <div className="flex flex-wrap gap-2 justify-around items-start p-4 border-b tracking-wide">
       <h1
         className="
           poppins-semibold 
@@ -13,24 +13,34 @@ export default function Navbar({ value, toggle }) {
         TaskManager
       </h1>
 
-      <div className="flex items-center gap-4">
-        <Button
-          value={"Dashboard"}
-          onSmash={() => toggle("dashboard")}
-          color={"bg-sky-600 text-gray-100 hover:bg-sky-700"}
-        />
+      <div className="flex flex-col sm:flex-row flex-wrap items-center gap-4">
+        <div className="flex items-center gap-2">
+          <Button
+            value={"Dashboard"}
+            onSmash={() => toggle("dashboard")}
+            color={"bg-sky-600 text-gray-100 hover:bg-sky-700"}
+          />
 
-        <Button
-          value={"Add Task"}
-          onSmash={() => toggle("form")}
-          color={"bg-green-600 text-white hover:bg-green-700"}
-        />
+          <Button
+            value={"Add Task"}
+            onSmash={() => toggle("form")}
+            color={"bg-green-600 text-white hover:bg-green-700"}
+          />
+        </div>
 
-        <Button
-          value={"History"}
-          onSmash={() => toggle("history")}
-          color={"bg-gray-600 text-white hover:bg-gray-700"}
-        />
+        <div className="flex items-center gap-2">
+          <Button
+            value={"History"}
+            onSmash={() => toggle("history")}
+            color={"bg-gray-600 text-white hover:bg-gray-700"}
+          />
+
+          <Button
+            value={"Logout"}
+            onSmash={() => toggle("logout")}
+            color={"bg-red-600 text-white hover:bg-red-700"}
+          />
+        </div>
       </div>
     </div>
   );

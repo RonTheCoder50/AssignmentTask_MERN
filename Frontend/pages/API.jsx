@@ -3,9 +3,43 @@ import toast from "react-hot-toast";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+const getToken = () => {
+  return localStorage.getItem("token");
+};
+
+//register
+export async function registerAPI(info) {
+  try {
+    const response = await axios.post(`${API_URL}/api/user/register`, info);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    console.log(err.response);
+    toast.error(err?.response?.data?.message || "Internal server error!");
+  }
+}
+
+//login
+export async function loginAPI(info) {
+  try {
+    const response = await axios.post(`${API_URL}/api/user/login`, info);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    toast.error(err?.data?.message);
+  }
+}
+
+//fetch all tasks
 export async function apiCall() {
   try {
-    const response = await axios.get(`${API_URL}`);
+    const token = getToken();
+    const response = await axios.get(`${API_URL}/api/task`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     console.log("response: ", response);
 
     if (!response) {
@@ -23,13 +57,13 @@ export async function apiCall() {
 
 //add task
 export async function addTaskAPI(data) {
-  const obj = {
-    title: data.title.trim(),
-    content: data.content.trim(),
-  };
-
   try {
-    const response = await axios.post(`${API_URL}`, obj);
+    const token = getToken();
+    const response = await axios.post(`${API_URL}/api/task`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (!response) {
       toast.error("Failed to add task!");
       return;
@@ -54,7 +88,12 @@ export async function updateTaskAPI(data) {
   const id = data?.id; //task id
 
   try {
-    const response = await axios.put(`${API_URL}/${id}`, obj);
+    const token = getToken();
+    const response = await axios.put(`${API_URL}/api/task/${id}`, obj, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     if (!response) {
       toast.error("Failed to update task!");
       return;
@@ -71,7 +110,12 @@ export async function updateTaskAPI(data) {
 //mark to completed
 export async function completeTaskAPI(task, id) {
   try {
-    const response = await axios.put(`${API_URL}/${id}`, task);
+    const token = getToken();
+    const response = await axios.put(`${API_URL}/api/task/${id}`, task, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     if (!response) {
       toast.error("Failed to complete task!");
@@ -89,7 +133,13 @@ export async function completeTaskAPI(task, id) {
 //remove task
 export async function removeTaskAPI(id) {
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const token = getToken();
+    const response = await axios.delete(`${API_URL}/api/task/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     if (!response) {
       toast.error("Failed to delete task!");
       return;

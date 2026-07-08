@@ -10,11 +10,15 @@ import {
 } from "../controller/taskController.js";
 import validateTask from "../middleware/validateTask.js";
 
+import validateToken from "../middleware/validateTokenHandler.js";
+
+router.use(validateToken);
+
 //create task
 router.post("/", validateTask, createTask);
 
 //get all tasks
-router.get("/", getTasks);
+router.get("/", validateToken, getTasks); //test here jwt token
 
 //get task via id
 router.get("/:id", getTask);

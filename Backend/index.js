@@ -5,15 +5,16 @@ import connectDB from "./config/db.js";
 
 import test from "./routes/test.js";
 import taskRouter from "./routes/taskRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 
-import errorHandlerM from "./middleware/errorHandlerM.js";
+import errorHandler from "./middleware/errorHandlerM.js";
 
 const app = express();
 
 dotenv.config();
 connectDB();
 
-//to avoid cors issue
+//cors configuration
 const allowedHttpsOrigins = [
   "http://localhost:5173",
   "https://taskmanager-six-swart.vercel.app",
@@ -36,11 +37,14 @@ app.get("/", (req, res) => {
   res.send("TaskManager Backend is running 🚀");
 });
 
-//task routes
+//task route
 app.use("/api/task", taskRouter);
 
+//user route
+app.use("/api/user", userRouter);
+
 //error middleware (global)
-app.use(errorHandlerM);
+app.use(errorHandler);
 
 const port = process.env.PORT || 5001;
 app.listen(port, () => {

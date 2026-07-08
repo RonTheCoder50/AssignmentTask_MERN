@@ -17,7 +17,7 @@ export default function TaskCard({ data }) {
 
       <hr className="border-gray-400" />
 
-      <p className="text-sm sm:text-base poppins-regular p-1">
+      <p className="text-sm sm:text-base poppins-regular p-1 whitespace-pre-line">
         {data ? data?.content : "not found"}
       </p>
 

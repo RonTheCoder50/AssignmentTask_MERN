@@ -1,11 +1,13 @@
 import express from "express";
 const app = express();
 
-export default app.use((err, req, res, next) => {
-  console.log(err);
+const errorHandler = (err, req, res, next) => {
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
 
-  res.send(500).json({
+  res.status(statusCode).json({
     status: false,
     message: err.message || "Internal Server Error",
   });
-});
+};
+
+export default errorHandler;
