@@ -14,9 +14,9 @@ export const userRegister = asyncHandler(async (req, res) => {
     throw new Error("All fields are mandatory!");
   }
 
-  if (password.lengthS < 5) {
+  if (password.length < 6) {
     res.status(400);
-    throw new Error("Password must be greater than 5 characters!");
+    throw new Error("Password must be greater than or equal to 6 characters!");
   }
 
   //check is email exist means (user exist?)
