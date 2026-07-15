@@ -19,7 +19,7 @@ export default function TaskForm() {
     id: data?._id || null,
   });
 
-  const { status, refresh } = useContext(TaskContext);
+  const { status, refresh, theme } = useContext(TaskContext);
 
   function handleTitle(e) {
     const val = e.target.value;
@@ -86,7 +86,14 @@ export default function TaskForm() {
           type="text"
           value={info.title}
           onChange={handleTitle}
-          className="border border-gray-400 rounded-sm p-2 poppins-light"
+          className={`
+            border 
+            border-gray-400
+            rounded-sm 
+            p-2 
+            poppins-light
+            ${theme === "light" ? "placeholder:text-gray-700" : "text-white"}  
+          `}
           placeholder="Enter task title"
         />
       </label>
@@ -97,7 +104,15 @@ export default function TaskForm() {
           style={{ height: "140px" }}
           value={info.content}
           onChange={handleContent}
-          className="border border-gray-400 rounded-sm px-2 py-1 poppins-light"
+          className={`
+            border 
+            border-gray-400 
+            rounded-sm 
+            px-2
+            py-1 
+            poppins-light
+            ${theme === "light" ? "placeholder:text-gray-700" : "text-white"} 
+          `}
           placeholder="Enter task description"
         />
       </label>

@@ -1,8 +1,24 @@
 import Button from "../components/button";
+import { useContext } from "react";
+import { TaskContext } from "./mainPage";
 
-export default function Navbar({ value, toggle }) {
+export default function Navbar({ toggle }) {
+  const { theme, handleTheme } = useContext(TaskContext);
+
   return (
-    <div className="flex flex-wrap gap-2 justify-around items-start p-4 border-b tracking-wide">
+    <div
+      className={`
+        flex 
+        flex-wrap 
+        gap-2 
+        justify-around 
+        items-start 
+        p-4 
+        border-b 
+        tracking-wide
+        ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white"}
+      `}
+    >
       <h1
         className="
           poppins-semibold 
@@ -39,6 +55,12 @@ export default function Navbar({ value, toggle }) {
             value={"Logout"}
             onSmash={() => toggle("logout")}
             color={"bg-red-600 text-white hover:bg-red-700"}
+          />
+
+          <Button
+            value={theme === "light" ? "dark" : "light"}
+            onSmash={() => handleTheme()}
+            color={"text-white bg-slate-600 hover:bg-slate-700"}
           />
         </div>
       </div>

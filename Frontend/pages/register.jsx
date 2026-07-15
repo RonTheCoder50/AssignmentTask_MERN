@@ -34,9 +34,9 @@ export default function RegisterPage() {
 
   async function handleSubmit() {
     if (
-      info.name.trim() === "" ||
-      info.email.trim() === "" ||
-      info.password.trim() === ""
+      info.name.trim().length === 0 ||
+      info.email.trim().length === 0 ||
+      info.password.trim().length === 0
     ) {
       toast.error("All fields are mandatory");
       return;
@@ -58,8 +58,6 @@ export default function RegisterPage() {
 
     if (login) {
       localStorage.setItem("token", login.accessToken);
-      console.log(localStorage.getItem("token"));
-
       navigate("/dashboard");
     }
 

@@ -16,11 +16,13 @@ export const TaskContext = createContext();
 
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import useTheme from "../custom/theme";
 
 export default function MainSection() {
   const [data, setData] = useState(null);
   const [status, setStatus] = useState("dashboard");
   const [seletedTaskId, setSelectedTaskId] = useState(null);
+  const { theme, handleTheme } = useTheme();
 
   let viewTask =
     seletedTaskId && data?.filter((task) => task._id === seletedTaskId);
@@ -30,6 +32,7 @@ export default function MainSection() {
   const navigate = useNavigate();
 
   function handleStatus(val) {
+    console.log(val);
     if (val.trim().toLowerCase() === status) return;
     setStatus(val);
   }
@@ -101,27 +104,35 @@ export default function MainSection() {
   }
 
   return (
-    <section className="min-h-screen w-full flex flex-col gap-14">
-      <Navbar
-        value={status === 2 ? "Add Task" : "Dashboard"}
-        toggle={handleStatus}
-      />
-
-      <TaskContext.Provider
-        value={{
-          data: cleanData,
-          historyData: data,
-          completeTask: handleMarkDoneTask,
-          removeTask: handleDeleteTask,
-          selectedTaskId: handleSelectTaskId,
-          status: handleStatus,
-          refresh: fetchData,
-          statusValue: status,
-          taskId: seletedTaskId,
-        }}
+    <TaskContext.Provider
+      value={{
+        data: cleanData,
+        historyData: data,
+        completeTask: handleMarkDoneTask,
+        removeTask: handleDeleteTask,
+        selectedTaskId: handleSelectTaskId,
+        status: handleStatus,
+        refresh: fetchData,
+        statusValue: status,
+        taskId: seletedTaskId,
+        theme,
+        handleTheme,
+      }}
+    >
+      <section
+        className={`
+        min-h-screen
+        w-full 
+        flex 
+        flex-col 
+        gap-14
+        ${theme === "dark" ? "bg-slate-900 text-white" : "bg-white"}
+      `}
       >
+        <Navbar toggle={handleStatus} />
+
         {component}
-      </TaskContext.Provider>
-    </section>
+      </section>
+    </TaskContext.Provider>
   );
 }

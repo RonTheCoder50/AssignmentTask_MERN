@@ -12,7 +12,7 @@ import errorHandler from "./middleware/errorHandlerM.js";
 const app = express();
 
 dotenv.config();
-connectDB();
+connectDB(); //eshtablish a connection on database (mongodb)
 
 //cors configuration
 const allowedHttpsOrigins = [
@@ -27,7 +27,7 @@ app.use(
   }),
 );
 
-//allow middlewares
+//allow middlewares - built in middleware responsible for parsing request json data into javascript object.
 app.use(express.json());
 
 //test route
